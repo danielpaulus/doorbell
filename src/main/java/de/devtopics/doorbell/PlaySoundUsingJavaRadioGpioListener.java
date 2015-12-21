@@ -15,6 +15,11 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
  */
 public class PlaySoundUsingJavaRadioGpioListener implements GpioPinListenerDigital {
 
+    
+    public PlaySoundUsingJavaRadioGpioListener(MakeSound makeSound){
+    m = makeSound;
+    }
+    
     @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
         // display pin state on console
@@ -25,7 +30,7 @@ public class PlaySoundUsingJavaRadioGpioListener implements GpioPinListenerDigit
     }
 
     final static String file = "/home/pi/mp3s/scream.wav";
-    final static MakeSound m = new MakeSound();
+     static MakeSound m;
 
     private static void playSound() {
         try {

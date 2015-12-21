@@ -66,9 +66,9 @@ public class ListenGpioExample {
 
         // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
         final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_00, PinPullResistance.PULL_DOWN);
-
+        final MakeSound makeSound = new MakeSound();
         // create and register gpio pin listener
-        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener());
+        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener(makeSound));
 
         System.out.println(" ... complete the GPIO #02 circuit and see the listener feedback here in the console.");
 
