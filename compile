@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "run"
+javac -classpath .:classes:/opt/pi4j/lib/'*' -d . ListenGpioExample.java
+
