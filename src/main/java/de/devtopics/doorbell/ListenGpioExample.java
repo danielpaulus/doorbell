@@ -1,8 +1,6 @@
 package de.devtopics.doorbell;
 
 // START SNIPPET: listen-gpio-snippet
-
-
 /*
  * #%L
  * **********************************************************************
@@ -31,7 +29,6 @@ package de.devtopics.doorbell;
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
-
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -53,19 +50,17 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.FloatControl;
 
 /**
- * This example code demonstrates how to setup a listener
- * for GPIO pin state changes on the Raspberry Pi.  
- * 
+ * This example code demonstrates how to setup a listener for GPIO pin state
+ * changes on the Raspberry Pi.
+ *
  * @author Robert Savage
  */
 public class ListenGpioExample {
-    
-	// amixer cset numid=1 400
 
-	
+    // amixer cset numid=1 400
     public static void main(String args[]) throws InterruptedException {
         System.out.println("<--Pi4J--> GPIO Listen Example ... started.");
-       // playSound2();
+        // playSound2();
         // create gpio controller
         final GpioController gpio = GpioFactory.getInstance();
 
@@ -73,51 +68,20 @@ public class ListenGpioExample {
         final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_00, PinPullResistance.PULL_DOWN);
 
         // create and register gpio pin listener
-        myButton.addListener(new GpioPinListenerDigital() {
-            @Override
-            public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                // display pin state on console
-                System.out.println(" --> GPIO PIN STATE CHANGE-t: " + event.getPin() + " = " + event.getState());
-				if (event.getState()==PinState.HIGH)
-					playSound2();
-            }
-            
-        });
-        
+        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener());
+
         System.out.println(" ... complete the GPIO #02 circuit and see the listener feedback here in the console.");
-        
+
         // keep program running until user aborts (CTRL-C)
         for (;;) {
             Thread.sleep(500);
         }
-        
+
         // stop all GPIO activity/threads by shutting down the GPIO controller
         // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
         // gpio.shutdown();   <--- implement this method call if you wish to terminate the Pi4J GPIO controller        
     }
-	
-	private static void playSound(){
-		try{
-		Runtime.getRuntime().exec( "omxplayer -o local /home/pi/mp3s/scream.mp3" );
-		} catch (Exception e){
-			System.out.println("exception while playing mp3");
-			e.printStackTrace();
-		}
-		
-	}
-       static String file="/home/pi/mp3s/scream.wav";
-static MakeSound m = new MakeSound();	
-	private static void playSound2(){
-		 try {
 
-m.playSound(file);
-          
-        
-      } catch (Exception e) {
-        System.err.println(e.getMessage());
-      }
-		
-	}
 }
 
  

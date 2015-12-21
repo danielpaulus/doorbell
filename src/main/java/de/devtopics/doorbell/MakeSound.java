@@ -30,7 +30,7 @@ public class MakeSound {
     /**
      * @param filename the name of the file that is going to be played
      */
-    public void playSound(String filename){
+    public void playSound(String filename) {
 
         String strFilename = filename;
 
@@ -43,7 +43,7 @@ public class MakeSound {
 
         try {
             audioStream = AudioSystem.getAudioInputStream(soundFile);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -54,9 +54,9 @@ public class MakeSound {
         try {
             sourceLine = (SourceDataLine) AudioSystem.getLine(info);
             sourceLine.open(audioFormat);
-			FloatControl volume= (FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN); 
-			volume.setValue(volume.getMaximum());
-			
+            FloatControl volume = (FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN);
+            volume.setValue(volume.getMaximum());
+
         } catch (LineUnavailableException e) {
             e.printStackTrace();
             System.exit(1);
