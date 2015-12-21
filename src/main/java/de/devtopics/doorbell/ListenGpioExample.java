@@ -29,25 +29,12 @@ package de.devtopics.doorbell;
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
+import de.devtopics.doorbell.bellcontrolls.MakeSound;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.RaspiPin;
-import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
-import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import com.pi4j.io.gpio.PinState;
-
-import java.io.File;
-import java.io.IOException;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.FloatControl;
 
 /**
  * This example code demonstrates how to setup a listener for GPIO pin state

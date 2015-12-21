@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.devtopics.doorbell;
+package de.devtopics.doorbell.bellcontrolls;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class MakeSound {
     /**
      * @param filename the name of the file that is going to be played
      */
-    public void playSound(String filename) {
+    public synchronized void playSound(String filename) {
 
         String strFilename = filename;
 

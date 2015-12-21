@@ -5,6 +5,7 @@
  */
 package de.devtopics.doorbell;
 
+import de.devtopics.doorbell.bellcontrolls.MakeSound;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
