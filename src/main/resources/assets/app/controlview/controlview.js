@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.settingsview', ['ngRoute', 'angular.atmosphere'])
+angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
 
         .config(['$routeProvider', function ($routeProvider) {
-                $routeProvider.when('/settingsview', {
-                    templateUrl: 'settingsview/settingsview.html',
+                $routeProvider.when('/controlview', {
+                    templateUrl: 'controlview/controlview.html',
                     controller: 'SettingsViewCtrl'
                 });
             }])
 
-        .controller('SettingsViewCtrl', ['$scope', '$http', '$log', 'atmosphereService', 'SettingsService', function ($scope, $http, $log, atmosphereService, settingsService) {
+        .controller('SettingsViewCtrl', ['$scope', '$http', '$log', 'atmosphereService', function ($scope, $http, $log, atmosphereService, settingsService) {
                 $scope.model = {
                     transport: 'websocket',
                     messages: []
