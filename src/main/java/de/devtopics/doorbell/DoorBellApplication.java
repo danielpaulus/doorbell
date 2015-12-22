@@ -12,6 +12,7 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletRegistration;
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereServlet;
@@ -24,6 +25,8 @@ import org.eclipse.jetty.websocket.server.WebSocketHandler;
  */
 public class DoorBellApplication extends Application<DoorBellConfiguration> {
 
+    public static final ConcurrentHashMap<String, Object> keyValueStore= new ConcurrentHashMap<>();
+    
     @Override
     public String getName() {
         return "hello-world";
@@ -39,7 +42,7 @@ public class DoorBellApplication extends Application<DoorBellConfiguration> {
     @Override
     public void run(DoorBellConfiguration configuration,
             Environment environment) {
-        final DoorBell doorBell= new DoorBell(ListenGpioExample.makeSound);
+        final DoorBell doorBell= ListenGpioExample.doorbell;
         AtmosphereServlet servlet = new AtmosphereServlet();
         servlet.framework().addInitParameter(ApplicationConfig.ANNOTATION_PACKAGE, WebSocketHandler.class.getPackage().getName());
         servlet.framework().addInitParameter(ApplicationConfig.WEBSOCKET_SUPPORT, "true");
@@ -51,12 +54,12 @@ public class DoorBellApplication extends Application<DoorBellConfiguration> {
         registration.addMapping("/websocket/*");
 
         BroadcasterFactory broadcasterFactory = servlet.framework().getBroadcasterFactory();
-
+        doorBell.setBroadcasterFactory(broadcasterFactory);
         
         
         
         final DoorBellResource resource = new DoorBellResource(
-                doorBell
+                doorBell, broadcasterFactory
         );
         environment.jersey().register(resource);
     }

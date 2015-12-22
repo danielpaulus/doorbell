@@ -9,6 +9,7 @@ import de.devtopics.doorbell.bellcontrolls.MakeSound;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+import de.devtopics.doorbell.bellcontrolls.DoorBell;
 
 /**
  *
@@ -16,30 +17,24 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
  */
 public class PlaySoundUsingJavaRadioGpioListener implements GpioPinListenerDigital {
 
+    private final DoorBell doorBell;
+
     
-    public PlaySoundUsingJavaRadioGpioListener(MakeSound makeSound){
-    m = makeSound;
+    
+
+    PlaySoundUsingJavaRadioGpioListener(DoorBell doorbell) {
+        doorBell=doorbell;
     }
     
     @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
         // display pin state on console
         System.out.println(" --> GPIO PIN STATE CHANGE-t: " + event.getPin() + " = " + event.getState());
-        if (event.getState() == PinState.HIGH) {
-            playSound();
+        if (event.getState() == PinState.HIGH) {            
+            doorBell.SomeonePressedTheButtonAtTheDoorEvent();
         }
     }
 
-    final static String file = "/home/pi/mp3s/scream.wav";
-     static MakeSound m;
-
-    private static void playSound() {
-        try {
-            m.playSound(file);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-
-    }
+   
 
 }

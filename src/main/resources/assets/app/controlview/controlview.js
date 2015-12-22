@@ -19,8 +19,14 @@ angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
                 $scope.ringDoorBell = function () {
                     $http.get('api/bell/ring');
                 };
+                 $http.get('api/bell/silent').then(function(resp){
+                    
+                $scope.silentMode=resp.data;     
+                });
 
-
+                $scope.updateSilentMode = function () {
+                    $scope.silentMode = $http.post('api/bell/silent', $scope.silentMode.toString());
+                };
                 var socket;
 
                 var request = {
@@ -64,11 +70,10 @@ angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
                     $log.info(response);
                     var responseText = response.responseBody;
                     try {
-                        if ("X" !== responseTest) {
+                        if ("X" !== responseText) {
                             var message = atmosphere.util.parseJSON(responseText);
-                            if (message.hasOwnProperty("update")) {
-                                if (message.update === 1) {
-                                }
+                            if (message.hasOwnProperty("silent")) {
+                                $scope.silentMode=message.silent;
                             }
                         }
                     } catch (e) {

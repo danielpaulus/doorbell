@@ -35,6 +35,7 @@ import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.RaspiPin;
+import de.devtopics.doorbell.bellcontrolls.DoorBell;
 
 /**
  * This example code demonstrates how to setup a listener for GPIO pin state
@@ -45,7 +46,7 @@ import com.pi4j.io.gpio.RaspiPin;
 public class ListenGpioExample {
 
     
-    public static MakeSound makeSound;
+    public static DoorBell doorbell;
     public static boolean debug=false;
     // amixer cset numid=1 400
     public static void main(String args[]) throws Exception {
@@ -58,6 +59,7 @@ public class ListenGpioExample {
         if(!debug)
             startGpio();
         
+        doorbell= new DoorBell();
         try{
         new DoorBellApplication().run(new String[]{args[0],args[1]});
         } catch (Exception e){
@@ -81,9 +83,10 @@ public class ListenGpioExample {
 
         // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
         final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_00, PinPullResistance.PULL_DOWN);
-        makeSound = new MakeSound();
+        final MakeSound makeSound = new MakeSound();
+        doorbell.setMakeSound(makeSound);
         // create and register gpio pin listener
-        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener(makeSound));
+        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener(doorbell));
 
         System.out.println(" ... complete the GPIO #02 circuit and see the listener feedback here in the console.");
 
