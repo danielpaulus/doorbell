@@ -55,11 +55,12 @@ public class ListenGpioExample {
             if ("-d".equals(s))
                 debug=true;
         }
+        doorbell= new DoorBell();
         
         if(!debug)
             startGpio();
         
-        doorbell= new DoorBell();
+        
         try{
         new DoorBellApplication().run(new String[]{args[0],args[1]});
         } catch (Exception e){
