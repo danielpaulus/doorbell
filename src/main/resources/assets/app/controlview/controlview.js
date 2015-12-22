@@ -5,33 +5,21 @@ angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
         .config(['$routeProvider', function ($routeProvider) {
                 $routeProvider.when('/controlview', {
                     templateUrl: 'controlview/controlview.html',
-                    controller: 'SettingsViewCtrl'
+                    controller: 'ControlViewCtrl'
                 });
             }])
 
-        .controller('SettingsViewCtrl', ['$scope', '$http', '$log', 'atmosphereService', function ($scope, $http, $log, atmosphereService, settingsService) {
+        .controller('ControlViewCtrl', ['$scope', '$http', '$log', 'atmosphereService', function ($scope, $http, $log, atmosphereService, settingsService) {
                 $scope.model = {
                     transport: 'websocket',
                     messages: []
                 };
-                $scope.settings=settingsService;
-                $http.get('api/clientraspi').then(function (response) {
-                    $scope.clients = response.data;
-                });
-$scope.savingSettings=false;
-$scope.saveSettings= function(){
-                     $scope.savingSettings=true;
-                    $http.post('api/settings/' + raspiid + '/' + camid, $scope.settings).then(function(){
-                        $scope.savingSettings=false;
-                    });
-};
-                $scope.getImage = function () {
-                    $scope.loadingImage = true;
-                    var raspiid = $scope.clients[$scope.selectedClientIndex].hostId;
-                    var camid = $scope.clients[$scope.selectedClientIndex].cameras[$scope.selectedCamIndex].cameraId;
-                    $http.post('api/singleimage/takesnap/' + raspiid + '/' + camid);
 
+
+                $scope.ringDoorBell = function () {
+                    $http.get('api/bell/ring');
                 };
+
 
                 var socket;
 
@@ -51,18 +39,13 @@ $scope.saveSettings= function(){
                     $scope.model.transport = response.transport;
                     $scope.model.connected = true;
                     $scope.model.content = 'Atmosphere connected using ' + response.transport;
-                    $http.post("api/settings/snap").then(function () {
-                        $log.info("snap");
-                    });
+
                 };
 
                 request.onClientTimeout = function (response) {
                     $scope.model.content = 'Client closed the connection after a timeout. Reconnecting in ' + request.reconnectInterval;
                     $scope.model.connected = false;
-                    socket.push(atmosphere.util.stringifyJSON({author: author, message: 'is inactive and closed the connection. Will reconnect in ' + request.reconnectInterval}));
-                    setTimeout(function () {
-                        socket = atmosphereService.subscribe(request);
-                    }, request.reconnectInterval);
+
                 };
 
                 request.onReopen = function (response) {
@@ -81,13 +64,11 @@ $scope.saveSettings= function(){
                     $log.info(response);
                     var responseText = response.responseBody;
                     try {
-                        var message = atmosphere.util.parseJSON(responseText);
-                        if (message.hasOwnProperty("update")) {
-                            if (message.update === 1) {
-                                var raspiid = $scope.clients[$scope.selectedClientIndex].hostId;
-                                var camid = $scope.clients[$scope.selectedClientIndex].cameras[$scope.selectedCamIndex].cameraId;
-                                $scope.imageSource = 'api/singleimage/snapresult/' + raspiid + '/' + camid + '?' + Math.random();
-                                $scope.loadingImage = false;
+                        if ("X" !== responseTest) {
+                            var message = atmosphere.util.parseJSON(responseText);
+                            if (message.hasOwnProperty("update")) {
+                                if (message.update === 1) {
+                                }
                             }
                         }
                     } catch (e) {
@@ -99,7 +80,6 @@ $scope.saveSettings= function(){
                 request.onClose = function (response) {
                     $scope.model.connected = false;
                     $scope.model.content = 'Server closed the connection after a timeout';
-                    socket.push(atmosphere.util.stringifyJSON({author: $scope.model.name, message: 'disconnecting'}));
                 };
 
                 request.onError = function (response) {
@@ -115,6 +95,6 @@ $scope.saveSettings= function(){
                 socket = atmosphereService.subscribe(request);
 
 
-                
+
 
             }]);

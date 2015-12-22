@@ -18,9 +18,13 @@ public class DoorBell {
        
     }
     
-    
+    final static String file = "/home/pi/mp3s/scream.wav";
     public void ringIt(){
-    
+        try{
+        makeSound.playSound(file);
+        } catch (Exception e){
+        e.printStackTrace();
+        }
     }
     
 }
