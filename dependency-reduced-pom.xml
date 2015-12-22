@@ -26,7 +26,7 @@
               <transformers>
                 <transformer />
                 <transformer>
-                  <mainClass>de.devtopics.autocam.main.CamApplication</mainClass>
+                  <mainClass>de.devtopics.doorbell.DoorBellApplication</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -56,7 +56,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <atmosphere.version>2.2.5</atmosphere.version>
+    <atmosphere.version>2.4.1.4</atmosphere.version>
   </properties>
 </project>
 

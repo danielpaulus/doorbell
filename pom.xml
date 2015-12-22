@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jersey.version>2.17</jersey.version>
         <h2.version>1.4.187</h2.version>
-        <atmosphere.version>2.2.5</atmosphere.version>
+        <atmosphere.version>2.4.1.4</atmosphere.version>
     </properties>
     <build>
     <plugins>
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
             <artifactId>websocket-server</artifactId>
-            <version>9.2.9.v20150224</version>
+            <version>9.2.13.v20150730</version>
         </dependency>
         
          <dependency>

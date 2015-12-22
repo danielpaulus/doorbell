@@ -44,22 +44,26 @@ import com.pi4j.io.gpio.RaspiPin;
  */
 public class ListenGpioExample {
 
+    
+    public static MakeSound makeSound;
+    public static boolean debug=false;
     // amixer cset numid=1 400
-    public static void main(String args[]) throws InterruptedException {
-        System.out.println("<--Pi4J--> GPIO Listen Example ... started.");
-        // playSound2();
-        // create gpio controller
-        final GpioController gpio = GpioFactory.getInstance();
-
-        // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
-        final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_00, PinPullResistance.PULL_DOWN);
-        final MakeSound makeSound = new MakeSound();
-        // create and register gpio pin listener
-        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener(makeSound));
-
-        System.out.println(" ... complete the GPIO #02 circuit and see the listener feedback here in the console.");
-
-        // keep program running until user aborts (CTRL-C)
+    public static void main(String args[]) throws Exception {
+        
+        for (String s: args){
+            if ("-d".equals(s))
+                debug=true;
+        }
+        
+        if(!debug)
+            startGpio();
+        
+        try{
+        new DoorBellApplication().run(new String[]{args[0],args[1]});
+        } catch (Exception e){
+        e.printStackTrace();
+        }
+        
         for (;;) {
             Thread.sleep(500);
         }
@@ -69,6 +73,24 @@ public class ListenGpioExample {
         // gpio.shutdown();   <--- implement this method call if you wish to terminate the Pi4J GPIO controller        
     }
 
+    private static void startGpio(){
+    System.out.println("<--Pi4J--> GPIO Listen Example ... started.");
+        // playSound2();
+        // create gpio controller
+        final GpioController gpio = GpioFactory.getInstance();
+
+        // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
+        final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_00, PinPullResistance.PULL_DOWN);
+        makeSound = new MakeSound();
+        // create and register gpio pin listener
+        myButton.addListener(new PlaySoundUsingJavaRadioGpioListener(makeSound));
+
+        System.out.println(" ... complete the GPIO #02 circuit and see the listener feedback here in the console.");
+
+        // keep program running until user aborts (CTRL-C)
+        
+    }
+    
 }
 
  

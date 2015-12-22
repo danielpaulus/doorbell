@@ -39,7 +39,7 @@ public class DoorBellApplication extends Application<DoorBellConfiguration> {
     @Override
     public void run(DoorBellConfiguration configuration,
             Environment environment) {
-        final DoorBell doorBell= new DoorBell();
+        final DoorBell doorBell= new DoorBell(ListenGpioExample.makeSound);
         AtmosphereServlet servlet = new AtmosphereServlet();
         servlet.framework().addInitParameter(ApplicationConfig.ANNOTATION_PACKAGE, WebSocketHandler.class.getPackage().getName());
         servlet.framework().addInitParameter(ApplicationConfig.WEBSOCKET_SUPPORT, "true");

@@ -10,6 +10,13 @@ package de.devtopics.doorbell.bellcontrolls;
  * @author ganjalf
  */
 public class DoorBell {
+
+    private final MakeSound makeSound;
+
+    public DoorBell(MakeSound makeSound) {
+        this.makeSound = makeSound;
+       
+    }
     
     
     public void ringIt(){

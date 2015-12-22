@@ -62,6 +62,7 @@ logging:
       logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
       currentLogFilename: /tmp/application.log
       archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
+      maxFileSize: 1MB
       archivedFileCount: 7
       timeZone: UTC
 
