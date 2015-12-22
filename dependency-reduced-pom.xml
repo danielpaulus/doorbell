@@ -49,9 +49,14 @@
     </plugins>
   </build>
   <properties>
-    <maven.compiler.source>1.7</maven.compiler.source>
+    <h2.version>1.4.187</h2.version>
+    <dropwizard.version>0.9.1</dropwizard.version>
+    <jersey.version>2.17</jersey.version>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <atmosphere.version>2.2.5</atmosphere.version>
   </properties>
 </project>
 

@@ -7,8 +7,14 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <dropwizard.version>0.9.1</dropwizard.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jersey.version>2.17</jersey.version>
+        <h2.version>1.4.187</h2.version>
+        <atmosphere.version>2.2.5</atmosphere.version>
     </properties>
     <build>
     <plugins>
@@ -47,7 +53,7 @@
                         <transformers>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>de.devtopics.autocam.main.CamApplication</mainClass>
+                                <mainClass>de.devtopics.doorbell.DoorBellApplication</mainClass>
                             </transformer>
                         </transformers>
                     </configuration>
@@ -61,6 +67,35 @@
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-core</artifactId>
             <version>1.0</version>
+        </dependency>
+        
+          <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+            <version>${atmosphere.version}</version>
+        </dependency>
+
+        
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>9.2.9.v20150224</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-assets</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-forms</artifactId>
+            <version>${dropwizard.version}</version>    
         </dependency>
     </dependencies>
 </project>

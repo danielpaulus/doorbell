@@ -8,8 +8,15 @@ package de.devtopics.doorbell;
 import de.devtopics.doorbell.bellcontrolls.DoorBell;
 import de.devtopics.doorbell.resources.DoorBellResource;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.forms.MultiPartBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import javax.servlet.ServletRegistration;
+import org.atmosphere.cpr.ApplicationConfig;
+import org.atmosphere.cpr.AtmosphereServlet;
+import org.atmosphere.cpr.BroadcasterFactory;
+import org.eclipse.jetty.websocket.server.WebSocketHandler;
 
 /**
  *
@@ -24,13 +31,30 @@ public class DoorBellApplication extends Application<DoorBellConfiguration> {
 
     @Override
     public void initialize(Bootstrap<DoorBellConfiguration> bootstrap) {
-        // nothing to do yet
+         bootstrap.addBundle(new AssetsBundle("/assets/app", "/", "index.html"));
+        bootstrap.addBundle(new MultiPartBundle());
+       
     }
 
     @Override
     public void run(DoorBellConfiguration configuration,
             Environment environment) {
         final DoorBell doorBell= new DoorBell();
+        AtmosphereServlet servlet = new AtmosphereServlet();
+        servlet.framework().addInitParameter(ApplicationConfig.ANNOTATION_PACKAGE, WebSocketHandler.class.getPackage().getName());
+        servlet.framework().addInitParameter(ApplicationConfig.WEBSOCKET_SUPPORT, "true");
+
+        
+          environment.getApplicationContext().setAttribute("doorbell", doorBell);
+          
+        ServletRegistration.Dynamic registration = environment.servlets().addServlet("atmosphere", servlet);
+        registration.addMapping("/websocket/*");
+
+        BroadcasterFactory broadcasterFactory = servlet.framework().getBroadcasterFactory();
+
+        
+        
+        
         final DoorBellResource resource = new DoorBellResource(
                 doorBell
         );
