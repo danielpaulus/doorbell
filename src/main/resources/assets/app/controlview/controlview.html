@@ -5,7 +5,14 @@
     <div class="container">
 
         <div class="row">
+            <div class="col-md-12">
+                <img src="door.jpg" ng-show="someOneIsAtTheDoor" ng-click="someOneIsAtTheDoor=false"/>
+            </div>
+        </div>
+        
+        <div class="row">
             <h3>Türklingel</h3>
+            
             <div class="col-md-3">
                 <label for="repeatSelect"> Klingeltest: </label>
                 <button  class="form-control" ng-click="ringDoorBell()">Klingel Test</button>

@@ -15,13 +15,15 @@ angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
                     messages: []
                 };
 
-
+                $scope.SomeOneIsAtTheDoor = function () {
+                        $scope.someOneIsAtTheDoor=true;
+                }
                 $scope.ringDoorBell = function () {
                     $http.get('api/bell/ring');
                 };
-                 $http.get('api/bell/silent').then(function(resp){
-                    
-                $scope.silentMode=resp.data;     
+                $http.get('api/bell/silent').then(function (resp) {
+
+                    $scope.silentMode = resp.data;
                 });
 
                 $scope.updateSilentMode = function () {
@@ -73,7 +75,12 @@ angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
                         if ("X" !== responseText) {
                             var message = atmosphere.util.parseJSON(responseText);
                             if (message.hasOwnProperty("silent")) {
-                                $scope.silentMode=message.silent;
+                                $scope.silentMode = message.silent;
+                            }
+                            if (message.hasOwnProperty("action")) {
+                                if (message.action === "ring") {
+                                    $scope.SomeOneIsAtTheDoor();
+                                }
                             }
                         }
                     } catch (e) {
