@@ -1,3 +1,5 @@
 #!/bin/bash
 echo "starting:"
-sudo nohup java -classpath .:classes:/opt/pi4j/lib/'*' ListenGpioExample &
+
+#to access gpio you must be root, thats why it runs using sudo
+ nohup sudo java -jar /home/pi/automation/target/doorbell-1.0-SNAPSHOT.jar server /home/pi/automation/development.yml  &
