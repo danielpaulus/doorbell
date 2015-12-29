@@ -6,7 +6,7 @@ angular.module('myApp', [
   'myApp.version','myApp.controlview',
   'ngFileUpload', 'ui.grid',
   'ui.grid.selection','ui.grid.edit',
-  'textAngular','angular.atmosphere'
+  'textAngular','angular.atmosphere','ngAudio'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/controlview'});

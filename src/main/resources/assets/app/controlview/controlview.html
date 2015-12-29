@@ -6,25 +6,60 @@
 
         <div class="row">
             <div class="col-md-12">
-                <img src="door.jpg" ng-show="someOneIsAtTheDoor" ng-click="someOneIsAtTheDoor=false"/>
+                
             </div>
         </div>
-        
+
         <div class="row">
             <h3>Türklingel</h3>
-            
-            <div class="col-md-3">
-                <label for="repeatSelect"> Klingeltest: </label>
-                <button  class="form-control" ng-click="ringDoorBell()">Klingel Test</button>
-            </div>
-            <div class="col-md-3">
-                <div class="checkbox">
-                    <label>
-                        <input ng-true-value="true" ng-false-value="false" ng-change="updateSilentMode()" ng-model="silentMode" type="checkbox"> Ton ausschalten
-                    </label>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Den Ton der Klingel Testen (funktioniert auch wenn die Klingel auf stumm geschalten ist)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <button  class="btn btn-lg btn-primary" ng-click="ringDoorBell()">Klingel Test</button>
+                    </div>
                 </div>
             </div>
-        </div>    
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Klingel stummschalten</h3>
+                    </div>
+                    <p ng-show="silentMode">Klingel ist aus</p>
+                    <p ng-hide="silentMode">Klingel ist an</p>
+                    <div class="panel-body">
+                        <div class="checkbox">
+                            <label for="checkbox">
+                                <input id="checkbox" style="height:30px;width:30px" ng-true-value="true" ng-false-value="false" ng-change="updateSilentMode()" ng-model="silentMode" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Bedienen der Klingel im stummen Modus (klingelt nur in der App)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <button  class="btn-primary btn btn-lg" ng-click="ringInBrowser()">Klingel Test</button>
+                        <br/><br/>
+                        <button  class="btn btn-lg btn-primary" ng-click="stopAudio()">Stop Klingel</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
         <div class="row">
             <div class="col-md-12">
 

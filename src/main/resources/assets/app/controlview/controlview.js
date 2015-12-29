@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
+angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere', 'ngAudio'])
 
         .config(['$routeProvider', function ($routeProvider) {
                 $routeProvider.when('/controlview', {
@@ -9,15 +9,23 @@ angular.module('myApp.controlview', ['ngRoute', 'angular.atmosphere'])
                 });
             }])
 
-        .controller('ControlViewCtrl', ['$scope', '$http', '$log', 'atmosphereService', function ($scope, $http, $log, atmosphereService, settingsService) {
+        .controller('ControlViewCtrl', ['$scope', '$http', '$log', 'atmosphereService', 'ngAudio', function ($scope, $http, $log, atmosphereService, ngAudio) {
                 $scope.model = {
                     transport: 'websocket',
                     messages: []
                 };
 
+                $scope.sound = ngAudio.load("/sounds/Bells-ringing.mp3");
+                $scope.ringInBrowser = function () {
+                    $scope.sound.play();
+                };
+                $scope.stopAudio = function () {
+                    $scope.sound.stop();
+                };
                 $scope.SomeOneIsAtTheDoor = function () {
-                        $scope.someOneIsAtTheDoor=true;
-                }
+                    $scope.someOneIsAtTheDoor = true;
+                    $scope.sound.play();
+                };
                 $scope.ringDoorBell = function () {
                     $http.get('api/bell/ring');
                 };

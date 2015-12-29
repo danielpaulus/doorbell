@@ -26,7 +26,7 @@
               <transformers>
                 <transformer />
                 <transformer>
-                  <mainClass>de.devtopics.doorbell.DoorBellApplication</mainClass>
+                  <mainClass>de.devtopics.doorbell.ListenGpioExample</mainClass>
                 </transformer>
               </transformers>
             </configuration>
