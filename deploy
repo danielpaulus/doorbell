@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+
+echo [stopping old app..]
+sudo ./stop
+
+echo [clearing nohup]
+sudo rm /home/pi/automation/nohup.out
+
+
+echo pull new version..
+git pull github master
+
+echo [Clean]
+mvn clean
+
+echo build
+mvn package
+
+echo run
+./run

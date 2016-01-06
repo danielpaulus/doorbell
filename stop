@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pid=$(pgrep -f "java -jar /home/pi/automation/target/doorbell-1.0-SNAPSHOT.jar")
+echo stopping $pid 
+kill -SIGINT $pid
